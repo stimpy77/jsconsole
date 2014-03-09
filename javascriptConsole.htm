@@ -5,7 +5,7 @@
 	<body onkeydown="AddChar(event);" bgcolor="#000000" text="#D0D0D0">
 		<p style="FONT-FAMILY:Fixedsys">
 			<span id="cmdBuffer">Javascript Console<br>
-Copyright © 2002 by Jon Davis &lt;jon@jondavis.net&gt;.  All Rights Reserved.<br>
+Copyright © 2002,2014 by Jon Davis &lt;jon@jondavis.net&gt;.  All Rights Reserved.<br>
 &nbsp;<br>
 </span><span id="cmdNewBufferData"></span><span id="cmdCommand"></span><span id="cmdCursor">_</span>
 		</p>
@@ -103,6 +103,7 @@ function AddChar(e) {
 			break;
 		case 8:  // bksp
 			backspace();
+			e.preventDefault();
 			break;
 		case 49:  // 1 or !
 			if (e.shiftKey) {
