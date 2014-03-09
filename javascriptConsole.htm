@@ -1,0 +1,285 @@
+<html>
+	<head>
+		<title>JavaScript Console</title>
+	</head>
+	<body onkeydown="AddChar(event);" bgcolor="#000000" text="#D0D0D0">
+		<p style="FONT-FAMILY:Fixedsys">
+			<span id="cmdBuffer">Javascript Console<br>
+Copyright © 2002 by Jon Davis &lt;jon@jondavis.net&gt;.  All Rights Reserved.<br>
+&nbsp;<br>
+</span><span id="cmdNewBufferData"></span><span id="cmdCommand"></span><span id="cmdCursor">_</span>
+		</p>
+		<script language="javascript">
+function execCommand() {
+	var strCommand = new String();
+	strCommand = cmdCommand.innerText;
+	cmdCommand.innerHTML = "";
+	echo(strCommand);
+	switch (""+strCommand) {
+		case "cls":
+			cmdBuffer.innerHTML = "";
+			echo("Ready.");
+			echo("");
+			break;
+		case "help":
+			help();
+			break;
+		case "exit":
+			window.close();
+			break;
+		default:
+			try {
+				var resp = new String(eval(strCommand));
+				if (resp != "undefined") {
+					echo(resp);
+				}
+			} catch (e) {
+				echo("I don't understand \"" + strCommand + "\".  " + e);
+				echo("Type \"help\" for help.");
+			}
+	}
+	cmdCursor.scrollIntoView();
+}
+
+function help() {
+	echo("_____________________________________________");
+	echo("");
+	echo("Special commands:");
+	echo("");
+	echo("cls	- Clear Screen");
+	echo("help	- Help");
+	echo("exit	- Close window");
+	echo("");
+	echo("This help() function is just a JavaScript function on this web page.  "
+	   + "You can execute any Javascript function, or evaluate any value, by "
+	   + "just typing it in.  For example, if you type:");
+	echo("\n	alert(\"Hello World!\");\n");
+	echo("and press Enter then you should see a message box with the text "
+	   + "\"Hello World\".  Likewise if you type \n\n	2\n\nor \n\n	\"two\"\n\nthen "
+	   + "the same literal value will be returned.");
+	echo("You can also execute commands that modify this window.  For example, "
+	   + "to change the background color, type: ");
+	echo("\n	document.body.style.backgroundColor = \"#000040\";\n");
+	echo("This should turn the background color to a deep blue.");
+	echo("");
+	echo("Experiment!  Add your own functions to the script and have fun!");
+	echo("_____________________________________________");
+	echo("");
+}
+
+function echo(msg) {
+	cmdNewBufferData.innerText = msg;
+	cmdBuffer.innerHTML = cmdBuffer.innerHTML + cmdNewBufferData.innerHTML + "<br>";
+	cmdNewBufferData.innerHTML = "";
+}
+
+function backspace() {
+	if (cmdCommand.innerText.length > 0) {
+		cmdCommand.innerText = cmdCommand.innerText.substr(0,
+		  cmdCommand.innerText.length - 1);
+	}
+}
+
+// key mappings are specific to my keyboard
+
+function AddChar(e) {
+	var str = "";
+	switch (e.keyCode) {
+		case 13: // enter
+			execCommand();
+		case 16: // shift
+		case 17: // ctrl
+		case 18: // alt
+		case 46: // del
+		case 36: // home
+		case 35: // end
+		case 45: // insert
+		case 33: // pg up
+		case 34: // pg dn
+		case 37:  // <-
+		case 38:  // \/
+		case 39:  // ->
+		case 40:  // ^
+			break;
+		case 8:  // bksp
+			backspace();
+			break;
+		case 49:  // 1 or !
+			if (e.shiftKey) {
+				str = "!";
+			} else {
+				str = "1";
+			}
+			break;
+		case 50:  // 2 or @
+			if (e.shiftKey) {
+				str = "@";
+			} else {
+				str = "2";
+			}
+			break;
+		case 51:  // 3 or #
+			if (e.shiftKey) {
+				str = "#";
+			} else {
+				str = "3";
+			}
+			break;
+		case 52:  // 4 or $
+			if (e.shiftKey) {
+				str = "$";
+			} else {
+				str = "4";
+			}
+			break;
+		case 53:  // 5 or %
+			if (e.shiftKey) {
+				str = "%";
+			} else {
+				str = "5";
+			}
+			break;
+		case 54:  // 6 or ^
+			if (e.shiftKey) {
+				str = "^";
+			} else {
+				str = "6";
+			}
+			break;
+		case 55:  // 7 or &
+			if (e.shiftKey) {
+				str = "&";
+			} else {
+				str = "7";
+			}
+			break;
+		case 56:  // 8 or *
+			if (e.shiftKey) {
+				str = "*";
+			} else {
+				str = "8";
+			}
+			break;
+		case 57:  // 9 or (
+			if (e.shiftKey) {
+				str = "(";
+			} else {
+				str = "9";
+			}
+			break;
+		case 48:  // 0 or )
+			if (e.shiftKey) {
+				str = ")";
+			} else {
+				str = "0";
+			}
+			break;
+		case 189:  // - or _
+			if (e.shiftKey) {
+				str = "_";
+			} else {
+				str = "-";
+			}
+			break;
+		case 187:  // = or +
+			if (e.shiftKey) {
+				str = "+";
+			} else {
+				str = "=";
+			}
+			break;
+		case 222:  // ' or "
+			if (e.shiftKey) {
+				str = "\"";
+			} else {
+				str = "'";
+			}
+			break;
+		case 191:  // / or ?
+			if (e.shiftKey) {
+				str = "?";
+			} else {
+				str = "/";
+			}
+			break;
+		case 190:  // / or ?
+			if (e.shiftKey) {
+				str = ">";
+			} else {
+				str = ".";
+			}
+			break;
+		case 188:  // , or <
+			if (e.shiftKey) {
+				str = "<";
+			} else {
+				str = ",";
+			}
+			break;
+		case 186:  // ; or :
+			if (e.shiftKey) {
+				str = ":";
+			} else {
+				str = ";";
+			}
+			break;
+		case 219:  // [ or {
+			if (e.shiftKey) {
+				str = "{";
+			} else {
+				str = "[";
+			}
+			break;
+		case 220:  // \ or |
+			if (e.shiftKey) {
+				str = "|";
+			} else {
+				str = "\\";
+			}
+			break;
+		case 221:  // ] or }
+			if (e.shiftKey) {
+				str = "}";
+			} else {
+				str = "]";
+			}
+			break;
+		default:
+			str = String.fromCharCode(e.keyCode);
+			if (!e.shiftKey) {
+				str=str.toLowerCase();
+			}
+			break;
+	}
+	if (str != "") {
+		cmdCursor.scrollIntoView();
+		cmdCommand.innerText = cmdCommand.innerText + str;
+	}
+	resetCursorBlink();
+	//alert(e.keyCode);
+}
+
+echo("Ready.");
+echo("");
+
+var cursorBlinker;
+resetCursorBlink();
+
+function resetCursorBlink() {
+	try {
+		clearInterval(cursorBlinker);
+	} catch(e) {}
+	cmdCursor.style.visibility="";
+	cursorBlinker = setInterval("blinkCursor()", 400)
+}
+
+function blinkCursor() {
+	if (cmdCursor.style.visibility=="") {
+		cmdCursor.style.visibility="hidden";
+	} else {
+		cmdCursor.style.visibility="";
+	}
+}
+		</script>
+	</body>
+</html>
